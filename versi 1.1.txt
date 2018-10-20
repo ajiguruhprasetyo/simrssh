@@ -1,0 +1,9 @@
+versi 1.1
+
+1. bug inklusi dan eksklusi di button show
+2. add sub menu laporan angka indikator
+3. add sub menu laporan kejadian indikator  
+4. add search index kamus indikator
+5. add search index angka indikator
+6. add search index kejadian indikator
+7. add menu surveilance
