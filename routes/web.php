@@ -319,5 +319,16 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::patch('rehabmedik/{id}',['as'=>'rehabmedik.update','uses'=>'RehabMedikController@update','middleware' => ['permission:update-rehabmedik']]);
 	Route::delete('rehabmedik/{id}',['as'=>'rehabmedik.destroy','uses'=>'RehabMedikController@destroy','middleware' => ['permission:delete-rehabmedik']]); 
 	Route::get('rehabmedik.laporan',['as'=>'rehabmedik.laporan','uses'=>'RehabMedikController@laporan','middleware' => ['permission:laporan-rehabmedik']]); //rehabmedik controller
+
+	//ipsrs route auth
+	Route::get('ipsrs',['as'=>'ipsrs.index','uses'=>'IpsrsController@index','middleware' => ['permission:create-ipsrs|read-ipsrs|update-ipsrs|delete-ipsrs']]);
+	Route::get('ipsrs/create',['as'=>'ipsrs.create','uses'=>'IpsrsController@create','middleware' => ['permission:create-ipsrs']]);
+	Route::post('ipsrs/create',['as'=>'ipsrs.store','uses'=>'IpsrsController@store','middleware' => ['permission:create-ipsrs']]);
+	Route::get('ipsrs/{id}',['as'=>'ipsrs.show','uses'=>'IpsrsController@show']);
+	Route::get('ipsrs/{id}/edit',['as'=>'ipsrs.edit','uses'=>'IpsrsController@edit','middleware' => ['permission:update-ipsrs']]);
+	Route::patch('ipsrs/{id}',['as'=>'ipsrs.update','uses'=>'IpsrsController@update','middleware' => ['permission:update-ipsrs']]);
+	Route::delete('ipsrs/{id}',['as'=>'ipsrs.destroy','uses'=>'IpsrsController@destroy','middleware' => ['permission:delete-ipsrs']]); 
+	Route::get('ipsrs.laporan',['as'=>'ipsrs.laporan','uses'=>'IpsrsController@laporan','middleware' => ['permission:laporan-ipsrs']]); //ipsrs controller
+
 });
 

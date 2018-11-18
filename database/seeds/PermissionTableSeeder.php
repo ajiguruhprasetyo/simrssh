@@ -865,7 +865,7 @@ class PermissionTableSeeder extends Seeder
 
             'description' => 'See only Print Of Area indikator'
 
-        ],*/
+        ],
 
         //data auth kejadian indikator
         [
@@ -916,9 +916,58 @@ class PermissionTableSeeder extends Seeder
 
             'description' => 'Laporan Rehab Medik'
 
+        ],*/
+
+        //data auth ipsrs
+        [
+
+            'name' => 'read-ipsrs',
+
+            'display_name' => 'Display IPSRS Listing',
+
+            'description' => 'See only Listing Of IPSRS'
+
         ],
 
+        [
 
+            'name' => 'create-ipsrs',
+
+            'display_name' => 'Create IPSRS',
+
+            'description' => 'Create New IPSRS'
+
+        ],
+
+        [
+
+            'name' => 'update-ipsrs',
+
+            'display_name' => 'Edit IPSRS',
+
+            'description' => 'Edit IPSRS'
+
+        ],
+
+        [
+
+            'name' => 'delete-ipsrs',
+
+            'display_name' => 'Delete IPSRS',
+
+            'description' => 'Delete IPSRS'
+
+        ],
+
+        [
+
+            'name' => 'laporan-ipsrs',
+
+            'display_name' => 'Laporan IPSRS',
+
+            'description' => 'Laporan IPSRS'
+
+        ],
 
     ];
 

@@ -51,7 +51,7 @@
 
                 <strong>Nama :</strong>
 
-                <?php echo Form::text('nama', null, array('placeholder' => 'Nama','class' => 'form-control')); ?>
+                <?php echo Form::text('nama', null, array('placeholder' => ' ','class' => 'form-control')); ?>
 
 
             </div>
@@ -71,7 +71,7 @@
 
         </div>
 
-         <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-12">
 
             <div class="form-group">
 
@@ -84,13 +84,13 @@
 
         </div>
 
-         <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-12">
 
             <div class="form-group">
 
                 <strong>Alamat:</strong>
 
-                <?php echo Form::text('alamat', null, array('placeholder' => 'ALamat anda..','class' => 'form-control')); ?>
+                <?php echo Form::text('alamat', null, array('placeholder' => ' ','class' => 'form-control')); ?>
 
 
             </div>
@@ -104,6 +104,32 @@
                 <strong>Kritik dan Saran:</strong>
 
                 <?php echo Form::textarea('kritik_saran', null, array('placeholder' => 'Kritik dan saran anda','class' => 'form-control','style'=>'height:100px')); ?>
+
+
+            </div>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+
+            <div class="form-group">
+
+                <strong>Tanggal Feedback :</strong>
+
+                 <?php echo Form::date('tgl_feedback', null, array('placeholder' => '','class' => 'form-control')); ?>
+
+
+            </div>
+
+        </div>
+
+         <div class="col-xs-12 col-sm-12 col-md-12">
+
+            <div class="form-group">
+
+                <strong>Feedback:</strong>
+
+                <?php echo Form::textarea('feedback', null, array('placeholder' => ' ','class' => 'form-control','style'=>'height:100px')); ?>
 
 
             </div>
