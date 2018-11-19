@@ -17,29 +17,31 @@
             <div class="box">
                 <form class="form-horizontal" method="post" action="">
                 
-                    <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="col-xs-4 col-sm-4 col-md-4">
 
                         <div class="form-group">
+                            <div>
+                                <?php echo Form::label('Judul Indikator :'); ?>
 
-                            <?php echo Form::label('Judul Indikator :'); ?>
 
-
-                            <select class="form-control" name="id_area_indikator">
-                                <?php $__currentLoopData = $ares; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option value="<?php echo e($s->id); ?>"><?php echo e($s->nama_area_indikator); ?></option>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            </select>
+                                <select class="form-control" name="id_area_indikator">
+                                    <?php $__currentLoopData = $ares; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($s->id); ?>"><?php echo e($s->nama_area_indikator); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <div>
-                                 <?php echo Form::label('Tanggal :'); ?>
+                                 <?php echo Form::label('Tanggal Input:'); ?>
 
-                                <input type="hidden" name="tgl_awal" id="tgl_awal" value="">
-                                <input type="text" name="tgl_awal_show" id="tgl_awal_show" value="">
+                                 <br/>
+                                <input type="hidden" name="start_date" id="start_date" value="<?php echo e($start_date); ?>"/>
+                                <input type="text" name="start_date_show" id="start_date_show" value="<?php echo e($start_date); ?> "  style="width:150px; text-align: right;"/>
                                 s.d 
-                                <input type="hidden" name="tgl_akhir" id="tgl_akhir" value="">
-                                <input type="text" name="tgl_akhir_show" id="tgl_akhir_show" value="">
+                                <input type="hidden" name="end_date" id="end_date" value="<?php echo e($end_date); ?>"/>
+                                <input type="text" name="tanggal_akhir_show" id="tanggal_akhir_show" value="<?php echo e($end_date); ?>"  style="width:150px; text-align: right;"/>
                             </div> 
                         </div>
 
@@ -49,7 +51,7 @@
 
 
                             <div class="col-md-4">
-                                <?php echo e(Form::submit('Filter')); ?>
+                                <?php echo e(Form::submit('Filter', ['id' => 'btn-filter'])); ?>
 
                             </div>
 
@@ -86,46 +88,49 @@
 <?php endif; ?>
 
 <table class="table table-bordered">
+    <thead>
+        <tr>
 
-<tr>
+            <th>No</th>
 
-    <th>No</th>
+            <th>Area Indikator</th>
 
-    <th>Area Indikator</th>
+            <th>Tanggal Input</th>
 
-    <th>Tanggal Input</th>
+            <th>Numerator</th>
 
-    <th>Numerator</th>
+            <th>Denumerator</th>
 
-    <th>Denumerator</th>
+            <th>Persentase</th>
 
-    <th>Persentase</th>
+            <th>Standard</th>
 
-    <th>Standard</th>
-
-</tr>
-
+        </tr>
+    </thead>
 
 <?php $__currentLoopData = $ais; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $h): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
+<tbody id="data_show">
+    <tr>
 
-<tr>
+        <td> <?php echo e(++$i); ?></td>
 
-<td> <?php echo e(++$i); ?></td>
+        <td> <?php echo e($h->areaindikator->nama_area_indikator); ?></td>
 
-<td> <?php echo e($h->areaindikator->nama_area_indikator); ?></td>
+        <td> <?php echo e($h->tgl_input); ?> </td>
 
-<td> <?php echo e($h->tgl_input); ?> </td>
+        <td> <?php echo e($h->angka_persentase); ?></td>
 
-<td> <?php echo e($h->angka_persentase); ?></td>
+        <td> <?php echo e($h->jumlah); ?> </td>
 
-<td> <?php echo e($h->jumlah); ?> </td>
+        <td> <?php echo e($h->persentase); ?>% </td>
 
-<td> <?php echo e($h->persentase); ?>% </td>
+        <td> <?php echo e($h->standard); ?> </td>
 
-<td> <?php echo e($h->standard); ?> </td>
+    </tr>
+</tbody>
 
-</tr>
+
 
 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
@@ -134,15 +139,45 @@
 <?php echo e($ais->links()); ?>
 
     <div class="pull-left">
-
-
         <?php if (\Entrust::can('angkaindikator-download')) : ?>
-
-        <a class="btn btn-sm btn-success" href="<?php echo e(route('angkaindikator.download')); ?>"> Download</a>
-
+            <a class="btn btn-sm btn-success" href="<?php echo e(route('angkaindikator.download')); ?>"> Download</a>
         <?php endif; // Entrust::can ?>	            
-
     </div>
+    <script>
+    $(document).ready(function() {
+         $('#btn-filter').on('click', function(){
+            $('#data_show').empty();
+            $('#data_show').append('<tr><td colspan="6">&nbsp;&nbsp; <b>Loading ....</b></td></tr>');
+            
+        })
+        $("#start_date_show").attr('readonly', true);  
+        $("#start_date_show").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            autoclose: true,
+            format: 'd MM yyyy',
+            linkFormat: "yy-mm-dd",
+            linkField: '#tgl_pr'
 
+        }).on("changeDate", function(e) {
+            var newDate = e.format('yyyy-mm-dd')
+            $("input[name='created_at']").val(newDate);
+        });
+        $("#end_date_show").attr('readonly', true);  
+        $("#end_date_show").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            autoclose: true,
+            format: 'd MM yyyy',
+            linkFormat: "yy-mm-dd",
+            linkField: '#tgl_pr'
+
+        }).on("changeDate", function(e) {
+            var newDate = e.format('yyyy-mm-dd')
+            $("input[name='created_at']").val(newDate);
+        });
+    });
+
+</script>
  <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.adminlte', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

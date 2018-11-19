@@ -143,10 +143,19 @@ class AngkaIndikatorController extends Controller
 
     public function laporanAI(Request $request)
     {
-         $ais = AngkaIndikator::orderBy('id','DESC')->paginate(10);
-         $ares = AreaIndikator::all();
+        $start_date = date('Y-m-d');
+        $end_date = date('Y-m-d');
 
-        return view('angkaindikators.laporan',compact('ais','ares'))
+        if (!empty($_POST['created_at'])) {
+            $start_date    = $_POST['created_at'];
+        }
+        if (!empty($_POST['created_at'])) {
+            $end_date    = $_POST['created_at'];
+        }
+        $ais = AngkaIndikator::orderBy('id','DESC')->paginate(10);
+        $ares = AreaIndikator::all();
+
+        return view('angkaindikators.laporan',compact('ais','ares', 'start_date', 'end_date'))
         ->with('i', ($request->input('page', 1) - 1) * 10);
     }
 }

@@ -17,27 +17,29 @@
             <div class="box">
                 <form class="form-horizontal" method="post" action="">
                 
-                    <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="col-xs-4 col-sm-4 col-md-4">
 
                         <div class="form-group">
+                            <div>
+                                {!! Form::label('Judul Indikator :') !!}
 
-                            {!! Form::label('Judul Indikator :') !!}
-
-                            <select class="form-control" name="id_area_indikator">
-                                @foreach($ares as $s)
-                                    <option value="{{ $s->id }}">{{ $s->nama_area_indikator}}</option>
-                                @endforeach
-                            </select>
+                                <select class="form-control" name="id_area_indikator">
+                                    @foreach($ares as $s)
+                                        <option value="{{ $s->id }}">{{ $s->nama_area_indikator}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <div>
-                                 {!! Form::label('Tanggal :') !!}
-                                <input type="hidden" name="tgl_awal" id="tgl_awal" value="">
-                                <input type="text" name="tgl_awal_show" id="tgl_awal_show" value="">
+                                 {!! Form::label('Tanggal Input:') !!}
+                                 <br/>
+                                <input type="hidden" name="start_date" id="start_date" value="{{ $start_date }}"/>
+                                <input type="text" name="start_date_show" id="start_date_show" value="{{ $start_date }} "  style="width:150px; text-align: right;"/>
                                 s.d 
-                                <input type="hidden" name="tgl_akhir" id="tgl_akhir" value="">
-                                <input type="text" name="tgl_akhir_show" id="tgl_akhir_show" value="">
+                                <input type="hidden" name="end_date" id="end_date" value="{{ $end_date }}"/>
+                                <input type="text" name="tanggal_akhir_show" id="tanggal_akhir_show" value="{{ $end_date }}"  style="width:150px; text-align: right;"/>
                             </div> 
                         </div>
 
@@ -46,7 +48,7 @@
                             {!! Form::label('&nbsp;')!!}
 
                             <div class="col-md-4">
-                                {{ Form::submit('Filter') }}
+                                {{ Form::submit('Filter', ['id' => 'btn-filter']) }}
                             </div>
 
                         </div>
@@ -82,46 +84,49 @@
 @endif
 
 <table class="table table-bordered">
+    <thead>
+        <tr>
 
-<tr>
+            <th>No</th>
 
-    <th>No</th>
+            <th>Area Indikator</th>
 
-    <th>Area Indikator</th>
+            <th>Tanggal Input</th>
 
-    <th>Tanggal Input</th>
+            <th>Numerator</th>
 
-    <th>Numerator</th>
+            <th>Denumerator</th>
 
-    <th>Denumerator</th>
+            <th>Persentase</th>
 
-    <th>Persentase</th>
+            <th>Standard</th>
 
-    <th>Standard</th>
-
-</tr>
-
+        </tr>
+    </thead>
 
 @foreach ($ais as $key => $h)
 
+<tbody id="data_show">
+    <tr>
 
-<tr>
+        <td> {{ ++$i }}</td>
 
-<td> {{ ++$i }}</td>
+        <td> {{ $h->areaindikator->nama_area_indikator }}</td>
 
-<td> {{ $h->areaindikator->nama_area_indikator }}</td>
+        <td> {{ $h->tgl_input}} </td>
 
-<td> {{ $h->tgl_input}} </td>
+        <td> {{ $h->angka_persentase }}</td>
 
-<td> {{ $h->angka_persentase }}</td>
+        <td> {{  $h->jumlah }} </td>
 
-<td> {{  $h->jumlah }} </td>
+        <td> {{  $h->persentase }}% </td>
 
-<td> {{  $h->persentase }}% </td>
+        <td> {{  $h->standard }} </td>
 
-<td> {{  $h->standard }} </td>
+    </tr>
+</tbody>
 
-</tr>
+
 
 @endforeach
 
@@ -129,14 +134,44 @@
 
 {{ $ais->links() }}
     <div class="pull-left">
-
-
         @permission('angkaindikator-download')
-
-        <a class="btn btn-sm btn-success" href="{{ route('angkaindikator.download') }}"> Download</a>
-
+            <a class="btn btn-sm btn-success" href="{{ route('angkaindikator.download') }}"> Download</a>
         @endpermission	            
-
     </div>
+    <script>
+    $(document).ready(function() {
+         $('#btn-filter').on('click', function(){
+            $('#data_show').empty();
+            $('#data_show').append('<tr><td colspan="6">&nbsp;&nbsp; <b>Loading ....</b></td></tr>');
+            
+        })
+        $("#start_date_show").attr('readonly', true);  
+        $("#start_date_show").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            autoclose: true,
+            format: 'd MM yyyy',
+            linkFormat: "yy-mm-dd",
+            linkField: '#tgl_pr'
 
+        }).on("changeDate", function(e) {
+            var newDate = e.format('yyyy-mm-dd')
+            $("input[name='created_at']").val(newDate);
+        });
+        $("#end_date_show").attr('readonly', true);  
+        $("#end_date_show").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            autoclose: true,
+            format: 'd MM yyyy',
+            linkFormat: "yy-mm-dd",
+            linkField: '#tgl_pr'
+
+        }).on("changeDate", function(e) {
+            var newDate = e.format('yyyy-mm-dd')
+            $("input[name='created_at']").val(newDate);
+        });
+    });
+
+</script>
  @endsection

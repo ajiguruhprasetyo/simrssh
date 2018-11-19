@@ -62,6 +62,14 @@
         </li>
         <?php endif; // Entrust::can ?>
 
+        <?php if (\Entrust::can('read-ipsrs')) : ?>
+        <li>
+          <a href="<?php echo e(route('ipsrs.index')); ?>">
+            <i class="fa fa-th"></i> <span>IPSRS</span>
+          </a>
+        </li>
+        <?php endif; // Entrust::can ?>
+
          <?php if (\Entrust::can('ppi-list')) : ?>
         <li>
           <a href="<?php echo e(route('ppi.index')); ?>">

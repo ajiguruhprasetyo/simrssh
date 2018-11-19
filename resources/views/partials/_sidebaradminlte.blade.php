@@ -62,6 +62,14 @@
         </li>
         @endpermission
 
+        @permission('read-ipsrs')
+        <li>
+          <a href="{{ route('ipsrs.index') }}">
+            <i class="fa fa-th"></i> <span>IPSRS</span>
+          </a>
+        </li>
+        @endpermission
+
          @permission('ppi-list')
         <li>
           <a href="{{ route('ppi.index') }}">

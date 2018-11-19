@@ -12,9 +12,10 @@ class IpsrsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {   $ipsrs = Ipsrs::orderBy('created_at', 'asc')->paginate(20);
-        return view('ipsrs.index', compact('ipsrs'));
+    public function index(Request $request)
+    {   
+        $ipsrs = Ipsrs::orderBy('created_at', 'asc')->paginate(20);
+        return view('ipsrs.index', compact('ipsrs'))->with('i', ($request->input('page', 1)-1) *20);
     }
 
     /**
