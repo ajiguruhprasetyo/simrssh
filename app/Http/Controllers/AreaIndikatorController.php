@@ -24,11 +24,11 @@ class AreaIndikatorController extends Controller
                     $query->where('nama_area_indikator', 'like', '%'.$data.'%');
                 }
             })
-            ->paginate(20);
+            ->paginate(50);
 
         return view('area_indikators.index',compact('area_indikators'))
 
-            ->with('i', ($request->input('areaindikator', 1) - 1) * 20);
+            ->with('i', ($request->input('areaindikator', 1) - 1) * 50);
 
     }
 

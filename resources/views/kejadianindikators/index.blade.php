@@ -47,7 +47,7 @@
                         @foreach ($kejadianindikators as $ki)
                         <tr>
                             <td>{{ ++$i }}</td>
-                            <td>{{ $ki->tgl_kejadian }}</td>
+                            <td>{{ date_format ( date_create($ki->tgl_kejadian), "d M Y" ) }}</td>
                             <td>{{ $ki->areaindikator->nama_area_indikator }}</td>
                             <td>{{ $ki->kejadian }}</td>
                             <td>{{ $ki->standard_indikator }}</td>
@@ -64,7 +64,7 @@
                         </tr>
                         @endforeach
                         </table>
-                    {!! $kejadianindikators->render() !!}
+                    {!! $kejadianindikators->appends(Request::get('page'))->links() !!}
 				</div><!-- /.box-body -->
 			</div><!-- /.box -->
 		</div><!-- /.col-lg-12 -->

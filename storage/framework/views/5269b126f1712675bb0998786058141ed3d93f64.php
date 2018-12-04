@@ -48,7 +48,7 @@
                         <?php $__currentLoopData = $kejadianindikators; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ki): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
                             <td><?php echo e(++$i); ?></td>
-                            <td><?php echo e($ki->tgl_kejadian); ?></td>
+                            <td><?php echo e(date_format ( date_create($ki->tgl_kejadian), "d M Y" )); ?></td>
                             <td><?php echo e($ki->areaindikator->nama_area_indikator); ?></td>
                             <td><?php echo e($ki->kejadian); ?></td>
                             <td><?php echo e($ki->standard_indikator); ?></td>
@@ -68,7 +68,7 @@
                         </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </table>
-                    <?php echo $kejadianindikators->render(); ?>
+                    <?php echo $kejadianindikators->appends(Request::get('page'))->links(); ?>
 
 				</div><!-- /.box-body -->
 			</div><!-- /.box -->

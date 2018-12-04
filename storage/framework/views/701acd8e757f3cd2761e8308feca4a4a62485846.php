@@ -32,3 +32,7 @@
 <script src="<?php echo e(url('dist/js/pages/dashboard.js')); ?>"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo e(url('dist/js/demo.js')); ?>"></script>
+
+<script src="<?php echo e(url('dist/js/demo.js')); ?>"></script>
+<script src="<?php echo e(url('js/jquery.js')); ?>"></script>
+<script src="<?php echo e(url('js/jquery-ui.js')); ?>"></script>

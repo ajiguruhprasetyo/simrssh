@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">  <!-- Tell the browser to be responsive to screen width -->
     
     @include('partials._css')
-
+ 
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   </head>
@@ -49,8 +49,10 @@
         <script>
           $.widget.bridge('uibutton', $.ui.button);
         </script>
+            
 
         @include('partials._javascript')
-
+        
+        @yield('script')
   </body>
 </html>

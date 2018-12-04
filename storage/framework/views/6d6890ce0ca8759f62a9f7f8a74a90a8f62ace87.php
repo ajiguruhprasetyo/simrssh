@@ -12,7 +12,7 @@
 
 	<div class="box box-primary">
 		<div class="box-header with-border">
-			<h3 class="box-title">Menambahkan Rumus Indikator</h3>
+			<h3 class="box-title">Menambahkan Kamus Indikator</h3>
 			<div class="box-tools pull-right">
 					<a class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></a>
 			</div><!-- /.box-tools -->
@@ -70,7 +70,7 @@
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-12">
 						<div class="form-group">
-							<?php echo Form::label('definisi_ind', 'Definisi Indikator :'); ?>
+							<?php echo Form::label('definisi_ind', 'Definisi Operasional :'); ?>
 
 							<?php echo Form::text('definisi_ind', null, array('placeholder' => '','class' => 'form-control')); ?>
 
@@ -150,7 +150,7 @@
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-12">
 						<div class="form-group">
-							<?php echo Form::label('periode_analisa', 'Periode Analisa'); ?>
+							<?php echo Form::label('periode_analisa', 'Frekuensi Analisis Data'); ?>
 
 							<?php echo Form::select('periode_analisa', ['hari' => 'hari', 'minggu' => 'minggu','bulan' => 'bulan', 'triwulan' => 'triwulan','semester' => 'semester', 'tahun' => 'tahun']); ?>
 

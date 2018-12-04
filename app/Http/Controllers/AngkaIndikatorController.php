@@ -17,17 +17,19 @@ class AngkaIndikatorController extends Controller
     {
         $data = $request->get('data');
 
-        $ais = AngkaIndikator::orderBy('created_at', 'asc')
+        $ais = AngkaIndikator::join('area_indikators', 'angka_indikators.id_areaindikator', '=', 'area_indikators.id')
+            ->select('angka_indikators.*', 'area_indikators.nama_area_indikator')
             ->where(function ($query) use ($data) {
                 if($data){
-                    $query->where('id_areaindikator', 'like', '%'.$data.'%');
+                    $query->where('area_indikators.nama_area_indikator', 'like', '%'.$data.'%');
                 }
             })
-            ->paginate(20);
-
+            ->paginate(31);
+        $ais->appends(['data' => $data]);
+            
         return view('angkaindikators.index',compact('ais'))
 
-            ->with('i', ($request->input('page', 1) - 1) * 20);
+            ->with('i', ($request->input('page', 1) - 1) * 31);
 
     }
 
@@ -141,21 +143,25 @@ class AngkaIndikatorController extends Controller
         return redirect()->route('angkaindikator.index')->with('success', 'data berhasil dihapus');
     }
 
-    public function laporanAI(Request $request)
+    public function laporanAI()
     {
-        $start_date = date('Y-m-d');
-        $end_date = date('Y-m-d');
+        $ais = AngkaIndikator::join('area_indikators', 'angka_indikators.id_areaindikator', '=', 'area_indikators.id')
+                ->select('angka_indikators.id_areaindikator', 'area_indikators.nama_area_indikator')
+                ->distinct('id_areaindikator')
+                ->get();
+        // $kis = KejadianIndikator::orderBy('id','DESC')->pluck('id_area_indikator','id');
+        // $ares = AreaIndikator::all();
 
-        if (!empty($_POST['created_at'])) {
-            $start_date    = $_POST['created_at'];
-        }
-        if (!empty($_POST['created_at'])) {
-            $end_date    = $_POST['created_at'];
-        }
-        $ais = AngkaIndikator::orderBy('id','DESC')->paginate(10);
-        $ares = AreaIndikator::all();
+        return view('angkaindikators.laporan',compact('ais'));
+    }
+    public function listLaporan($id)
+    {
+        $las = AngkaIndikator::join('area_indikators', 'angka_indikators.id_areaindikator', '=', 'area_indikators.id')
+        ->select('angka_indikators.*', 'area_indikators.nama_area_indikator')
+        ->orderBy('tgl_input', 'desc')
+        ->where('id_areaindikator', '=', $id )
+       ->get();
 
-        return view('angkaindikators.laporan',compact('ais','ares', 'start_date', 'end_date'))
-        ->with('i', ($request->input('page', 1) - 1) * 10);
+        return view('angkaindikators.listlaporan', compact('las'));
     }
 }

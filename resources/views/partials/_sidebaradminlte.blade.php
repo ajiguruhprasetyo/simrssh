@@ -25,7 +25,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">DASHBOARD</li>
-        @permission('')
+        @permission('unit_kerja-list')
         <li class="active treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>Master</span>
@@ -38,7 +38,7 @@
             <li><a href="{{ route('unit_kerja.index') }}"><i class="fa fa-circle-o"></i> Unit Kerja</a></li>
           </ul>
         </li>
-        @endpermission('unit_kerja-list')
+        @endpermission
         <!-- <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
@@ -63,14 +63,23 @@
         @endpermission
 
         @permission('read-ipsrs')
-        <li>
-          <a href="{{ route('ipsrs.index') }}">
-            <i class="fa fa-th"></i> <span>IPSRS</span>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-pie-chart"></i>
+            <span>IPSRS</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
           </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ route('ipsrs.index') }}"><i class="fa fa-circle-o"></i>Lapor Kerusakan</a></li>
+            <li><a href="{{ route('ipsrs.konfirmasi') }}"><i class="fa fa-circle-o"></i> Konfirmasi Perbaikan</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Laporan IPSRS</a></li>
+          </ul>
         </li>
         @endpermission
 
-         @permission('ppi-list')
+        @permission('ppi-list')
         <li>
           <a href="{{ route('ppi.index') }}">
             <i class="fa fa-th"></i> <span>Surveilance</span>

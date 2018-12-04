@@ -15,7 +15,7 @@
 
 	<div class="box box-primary">
 		<div class="box-header with-border">
-			<h3 class="box-title">Menambahkan Rumus Indikator</h3>
+			<h3 class="box-title">Menambahkan Kamus Indikator</h3>
 			<div class="box-tools pull-right">
 					<a class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></a>
 			</div><!-- /.box-tools -->
@@ -63,7 +63,7 @@
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-12">
 						<div class="form-group">
-							{!! Form::label('definisi_ind', 'Definisi Indikator :') !!}
+							{!! Form::label('definisi_ind', 'Definisi Operasional :') !!}
 							{!! Form::text('definisi_ind', null, array('placeholder' => '','class' => 'form-control')) !!}
 						</div>
 					</div>
@@ -123,7 +123,7 @@
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-12">
 						<div class="form-group">
-							{!! Form::label('periode_analisa', 'Periode Analisa') !!}
+							{!! Form::label('periode_analisa', 'Frekuensi Analisis Data') !!}
 							{!! Form::select('periode_analisa', ['hari' => 'hari', 'minggu' => 'minggu','bulan' => 'bulan', 'triwulan' => 'triwulan','semester' => 'semester', 'tahun' => 'tahun']) !!}
 						</div>
 					</div>

@@ -289,6 +289,8 @@ Route::group(['middleware' => ['auth']], function() {
 
 	Route::get('angkaindikator.laporan',['as'=>'angkaindikator.laporan','uses'=>'AngkaIndikatorController@laporanAI','middleware' => ['permission:angkaindikator-laporan']]);
 
+	Route::get('angkaindikator/{id}',['as'=>'angkaindikator.listlaporan','uses'=>'AngkaIndikatorController@listLaporan']);
+
 	Route::get('angkaindikator.download',['as'=>'angkaindikator.download','uses'=>'AngkaIndikatorController@downloadDataPmkp','middleware' => ['permission:angkaindikator-download']]);
 
 	//kejadian indikator route auth
@@ -307,6 +309,8 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::delete('kejadianindikator/{id}',['as'=>'kejadianindikator.destroy','uses'=>'KejadianIndikatorController@destroy','middleware' => ['permission:kejadianindikator-delete']]);
 
 	Route::get('kejadianindikator.laporan',['as'=>'kejadianindikator.laporan','uses'=>'KejadianIndikatorController@laporanKI','middleware' => ['permission:kejadianindikator-laporan']]);
+	
+	Route::get('kejadianindikator/{id}',['as'=>'kejadianindikator.listlaporan','uses'=>'KejadianIndikatorController@listLaporan']);
 
 	Route::get('kejadianindikator.download',['as'=>'kejadianindikator.download','uses'=>'KejadianIndikatorController@downloadDataPmkp','middleware' => ['permission:kejadianindikator-download']]);
 
@@ -328,6 +332,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('ipsrs/{id}/edit',['as'=>'ipsrs.edit','uses'=>'IpsrsController@edit','middleware' => ['permission:update-ipsrs']]);
 	Route::patch('ipsrs/{id}',['as'=>'ipsrs.update','uses'=>'IpsrsController@update','middleware' => ['permission:update-ipsrs']]);
 	Route::delete('ipsrs/{id}',['as'=>'ipsrs.destroy','uses'=>'IpsrsController@destroy','middleware' => ['permission:delete-ipsrs']]); 
+	Route::get('ipsrs.konfirmasi',['as'=>'ipsrs.konfirmasi','uses'=>'IpsrsController@konfirmasi','middleware' => ['permission:konfirmasi-ipsrs']]);
 	Route::get('ipsrs.laporan',['as'=>'ipsrs.laporan','uses'=>'IpsrsController@laporan','middleware' => ['permission:laporan-ipsrs']]); //ipsrs controller
 
 });

@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
+
 use App\KejadianIndikator;
 use App\AreaIndikator;
+use Auth;
+use DB;
+use PDF;
+use Excel;
 
 class KejadianIndikatorController extends Controller
 {
@@ -17,17 +23,20 @@ class KejadianIndikatorController extends Controller
     {
         $data = $request->get('data');
 
-        $kejadianindikators = KejadianIndikator::orderBy('created_at', 'asc')
-            ->where(function ($query) use ($data) {
-                if($data){
-                    $query->where('id_area_indikator', 'like', '%'.$data.'%');
-                }
-            })
-            ->paginate(20);
+        $kejadianindikators = KejadianIndikator::join('area_indikators', 'kejadian_indikators.id_area_indikator', '=', 'area_indikators.id')
+                                ->select('kejadian_indikators.*','area_indikators.nama_area_indikator')
+                                
+             ->where(function ($query) use ($data) {
+                 if($data){
+                     $query->where('area_indikators.nama_area_indikator', 'like', '%'.$data.'%');
+                 }
+             })
+             ->paginate(31);
+        $kejadianindikators->appends(['data' => $data]);
 
         return view('kejadianindikators.index',compact('kejadianindikators'))
 
-            ->with('i', ($request->input('page', 1) - 1) * 20);
+            ->with('i', ($request->input('page', 1) - 1) * 31);
 
     }
 
@@ -133,12 +142,41 @@ class KejadianIndikatorController extends Controller
         return redirect()->route('kejadianindikator.index')->with('success', 'Data berhasil di hapus!!');
     }
 
-    public function laporanKI(Request $request)
+    public function laporanKI()
     {
-        $kis = KejadianIndikator::orderBy('id','DESC')->paginate(10);
-        $ares = AreaIndikator::all();
+        $kis = KejadianIndikator::join('area_indikators', 'kejadian_indikators.id_area_indikator', '=', 'area_indikators.id')
+                ->select('kejadian_indikators.id_area_indikator', 'area_indikators.nama_area_indikator')
+                ->distinct('id_area_indikator')
+                ->get();
+        // $kis = KejadianIndikator::orderBy('id','DESC')->pluck('id_area_indikator','id');
+        // $ares = AreaIndikator::all();
 
-        return view('kejadianindikators.laporan',compact('kis', 'ares'))
-        ->with('i', ($request->input('page', 1) - 1) * 10);
+        return view('kejadianindikators.laporan',compact('kis'));
     }
+
+    public function listLaporan($id)
+        {
+            $kejadian = KejadianIndikator::join('area_indikators', 'kejadian_indikators.id_area_indikator', '=', 'area_indikators.id')
+            ->select('kejadian_indikators.*', 'area_indikators.nama_area_indikator')
+            ->orderBy('tgl_kejadian', 'desc')
+            ->where('id_area_indikator', '=', $id )
+           ->get();
+
+            return view('kejadianindikators.listlaporan', compact('kejadian'));
+        }
+
+
+    public function downloadDataPmkp(Request $request){
+
+        if ($request->ajax())
+        {
+            $status = KejadianIndikator::join('area_indikators', 'kejadian_indikators.id_area_indikator', '=', 'area_indikators.id')
+                                    ->whereBetween('kejadian_indikators.tgl_kejadian',[$request->tgl_kejadian, $request->end_date])
+                                    ->where('kejadian_indikators.id_area_indikator', $request->id_area_indikator)
+                                    ->get();
+
+                                return view('kejadianindikators.listkejadian', compact('status'));
+        }
+    }
+    
 }

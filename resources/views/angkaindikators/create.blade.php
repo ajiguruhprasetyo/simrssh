@@ -92,7 +92,7 @@
             function percent(){
                 one = document.autoSumForm.angka_persentase.value;
                 two = document.autoSumForm.jumlah.value;
-            document.autoSumForm.persentase.value = (one * 1) / (two * 1) * 100;
+            document.autoSumForm.persentase.value = (one * 1) / (two * 1) * 100 || 0;
         }
             function stopPercent(){
                 clearInterval(interval);

@@ -49,7 +49,7 @@
 							@foreach ($ais as $ai)
 								<tr>
 									<td>{{ ++$i }} </td>
-									<td>{{ $ai->tgl_input }}</td>
+									<td>{{ date_format ( date_create($ai->tgl_input), "d M Y" ) }}</td>
 									<td>{{ $ai->areaindikator->nama_area_indikator }}</td>
 									<td>{{ $ai->angka_persentase }}</td>
 									<td>{{ $ai->jumlah }}</td>	
@@ -68,7 +68,7 @@
 								</tr>
 							@endforeach
 						</table>
-					{!! $ais->render() !!}
+					{!! $ais->appends(Request::get('page'))->links() !!}
 				</div><!-- /.box-body -->
 			</div><!-- /.box -->
 		</div><!-- /.col-lg-12 -->

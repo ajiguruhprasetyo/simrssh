@@ -50,7 +50,7 @@
 							<?php $__currentLoopData = $ais; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ai): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 								<tr>
 									<td><?php echo e(++$i); ?> </td>
-									<td><?php echo e($ai->tgl_input); ?></td>
+									<td><?php echo e(date_format ( date_create($ai->tgl_input), "d M Y" )); ?></td>
 									<td><?php echo e($ai->areaindikator->nama_area_indikator); ?></td>
 									<td><?php echo e($ai->angka_persentase); ?></td>
 									<td><?php echo e($ai->jumlah); ?></td>	
@@ -72,7 +72,7 @@
 								</tr>
 							<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 						</table>
-					<?php echo $ais->render(); ?>
+					<?php echo $ais->appends(Request::get('page'))->links(); ?>
 
 				</div><!-- /.box-body -->
 			</div><!-- /.box -->

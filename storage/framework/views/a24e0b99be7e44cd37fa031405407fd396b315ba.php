@@ -25,7 +25,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">DASHBOARD</li>
-        <?php if (\Entrust::can('')) : ?>
+        <?php if (\Entrust::can('unit_kerja-list')) : ?>
         <li class="active treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>Master</span>
@@ -63,14 +63,23 @@
         <?php endif; // Entrust::can ?>
 
         <?php if (\Entrust::can('read-ipsrs')) : ?>
-        <li>
-          <a href="<?php echo e(route('ipsrs.index')); ?>">
-            <i class="fa fa-th"></i> <span>IPSRS</span>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-pie-chart"></i>
+            <span>IPSRS</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
           </a>
+          <ul class="treeview-menu">
+            <li><a href="<?php echo e(route('ipsrs.index')); ?>"><i class="fa fa-circle-o"></i>Lapor Kerusakan</a></li>
+            <li><a href="<?php echo e(route('ipsrs.konfirmasi')); ?>"><i class="fa fa-circle-o"></i> Konfirmasi Perbaikan</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Laporan IPSRS</a></li>
+          </ul>
         </li>
         <?php endif; // Entrust::can ?>
 
-         <?php if (\Entrust::can('ppi-list')) : ?>
+        <?php if (\Entrust::can('ppi-list')) : ?>
         <li>
           <a href="<?php echo e(route('ppi.index')); ?>">
             <i class="fa fa-th"></i> <span>Surveilance</span>

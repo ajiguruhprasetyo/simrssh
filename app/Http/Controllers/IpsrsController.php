@@ -14,8 +14,8 @@ class IpsrsController extends Controller
      */
     public function index(Request $request)
     {   
-        $ipsrs = Ipsrs::orderBy('created_at', 'asc')->paginate(20);
-        return view('ipsrs.index', compact('ipsrs'))->with('i', ($request->input('page', 1)-1) *20);
+        $ipsrs = Ipsrs::orderBy('created_at', 'desc')->paginate(20);
+        return view('ipsrs.index', compact('ipsrs'))->with('i', ($request->input('page', 1) -1) *20);
     }
 
     /**
@@ -25,7 +25,7 @@ class IpsrsController extends Controller
      */
     public function create()
     {
-        //
+        return view('ipsrs.create');
     }
 
     /**
@@ -36,7 +36,18 @@ class IpsrsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nama_alat'  => 'required|max:191',
+            'ruang'      => 'required|',
+            'kerusakan'  => 'required',
+            'status'     => 'required',
+            'permintaan' => 'required',
+            'pelapor'    => 'required',
+        ]);
+            Ipsrs::create($request->all());
+
+            return redirect()->route('ipsrs.index')->with('success','Data berhasil ditambahkan');
+        
     }
 
     /**
@@ -81,6 +92,13 @@ class IpsrsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Ipsrs::find($id)->delete();
+
+        return redirect()->route('ipsrs.konfirmasi')->with('success', 'Data berhasil di hapus!!!');
+    }
+    public function konfirmasi(Request $request)
+    {
+        $confirmipsrs = Ipsrs::orderBy('created_at', 'desc')->paginate('20');
+        return view('ipsrs.konfirmasi', compact('confirmipsrs'))->with('i', ($request->input('page', 1) -1) *20);
     }
 }

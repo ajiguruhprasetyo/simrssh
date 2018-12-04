@@ -916,7 +916,7 @@ class PermissionTableSeeder extends Seeder
 
             'description' => 'Laporan Rehab Medik'
 
-        ],*/
+        ],
 
         //data auth ipsrs
         [
@@ -966,6 +966,15 @@ class PermissionTableSeeder extends Seeder
             'display_name' => 'Laporan IPSRS',
 
             'description' => 'Laporan IPSRS'
+
+        ],*/
+        [
+
+            'name' => 'konfirmasi-ipsrs',
+
+            'display_name' => 'Konfirmasi IPSRS',
+
+            'description' => 'Konfirmasi IPSRS'
 
         ],
 

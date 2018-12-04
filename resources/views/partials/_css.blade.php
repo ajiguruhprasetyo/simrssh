@@ -18,3 +18,6 @@
   <link rel="stylesheet" href="{{ url('bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="{{ url('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+
+  <link rel="stylesheet" href="{{ url('css/jquery-ui.css') }}">
+  
